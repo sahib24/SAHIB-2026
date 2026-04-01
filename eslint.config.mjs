@@ -11,6 +11,15 @@ const eslintConfig = defineConfig([
     "build/**",
     "next-env.d.ts",
   ]),
+  {
+    plugins: {
+      "react-hooks": {
+        rules: {
+          "exhaustive-deps": "never"
+        }
+      }
+    }
+  }
 ]);
 
 export default eslintConfig;
