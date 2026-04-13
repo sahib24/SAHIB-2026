@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
-import axios from "axios";
+import axios from "@/plugins/axios";
 
 export default function CRUD() {
   const [posts, setPosts] = useState([]);
@@ -17,9 +17,7 @@ export default function CRUD() {
     const fetchPosts = async () => {
       setLoading(true);
       try {
-        const res = await axios.get(
-          "https://jsonplaceholder.typicode.com/posts",
-        );
+        const res = await axios.get("/posts");
         setPosts(res.data.slice(5, 10));
       } catch (err) {
         console.log(err);
@@ -32,19 +30,13 @@ export default function CRUD() {
 
   const handleCreate = async () => {
     if (!title || !body) return;
-
     const newPost = {
       title,
       body,
       userId: 1,
     };
-
     try {
-      const res = await axios.post(
-        "https://jsonplaceholder.typicode.com/posts",
-        newPost,
-      );
-
+      const res = await axios.post("/posts", newPost);
       setPosts((prev) => [res.data, ...prev]);
       setTitle("");
       setBody("");
@@ -64,17 +56,11 @@ export default function CRUD() {
       title: editTitle,
       body: editBody,
     };
-
     try {
-      await axios.patch(
-        `https://jsonplaceholder.typicode.com/posts/${id}`,
-        updatedData,
-      );
-
+      await axios.patch(`/posts/${id}`, updatedData);
       setPosts((prev) =>
         prev.map((p) => (p.id === id ? { ...p, ...updatedData } : p)),
       );
-
       setEditingId(null);
     } catch (err) {
       console.log(err);
@@ -83,7 +69,7 @@ export default function CRUD() {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`https://jsonplaceholder.typicode.com/posts/${id}`);
+      await axios.delete(`/posts/${id}`);
 
       setPosts((prev) => prev.filter((p) => p.id !== id));
     } catch (err) {
@@ -95,7 +81,6 @@ export default function CRUD() {
     <div className="p-6">
       <h1 className="text-xl font-bold mb-4"> CRUD</h1>
 
-     
       <div className="mb-4">
         <input
           value={title}
@@ -117,7 +102,6 @@ export default function CRUD() {
         </button>
       </div>
 
-    
       {loading ? (
         <p>Loading...</p>
       ) : (
