@@ -12,7 +12,7 @@ export default function LoginPage() {
     e.preventDefault();
 
     if (email === "sahib@gmail.com" && password === "1234") {
-      localStorage.setItem("loggedIn", "true");
+      localStorage.setItem("myKey", "true");
       router.push("/dashboard");
     } else {
       alert("Invalid login");
@@ -23,13 +23,14 @@ export default function LoginPage() {
     <div className="flex items-center justify-center h-screen">
       <div className="flex flex-col gap-4 shadow p-3">
         {" "}
-        <h1 className="text-red-500 text-center">Login Page</h1>
-        <form onSubmit={handleLogin}>
+        <h1 className="text-red-500 text-center">Login</h1>
+        <form onSubmit={handleLogin} autoComplete="off">
           <input
             placeholder="Email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="border mb-2"
+            className="border mb-2 p-1"
+            autoComplete="new-email"
           />
           <br />
 
@@ -38,7 +39,8 @@ export default function LoginPage() {
             placeholder="Password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            className="border "
+            className="border p-1"
+            autoComplete="new-password"
           />
           <br />
 

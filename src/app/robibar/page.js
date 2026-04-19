@@ -74,35 +74,87 @@
 //   );
 // }
 
-"use client";
-import { useState } from "react";
+// "use client";
+// import { useState } from "react";
 
-export default function SearchExample() {
-  const [search, setSearch] = useState("");
+// export default function SearchExample() {
+//   const [search, setSearch] = useState("");
 
-  const items = ["Apple", "Banana", "Orange", "Mango", "Pineapple"];
+//   const items = ["Apple", "Banana", "Orange", "Mango", "Pineapple"];
 
-  const filteredItems = items.filter((item) =>
-    item.toLowerCase().includes(search.toLowerCase()),
-  );
+//   const filteredItems = items.filter((item) =>
+//     item.toLowerCase().includes(search.toLowerCase()),
+//   );
 
-  return (
-    <div className="p-5">
-      <input
-        type="text"
-        placeholder="Search fruit..."
-        value={search}
-        onChange={(e) => setSearch(e.target.value)}
-        className="border p-2"
-      />
+//   return (
+//     <div className="p-5">
+//       <input
+//         type="text"
+//         placeholder="Search fruit..."
+//         value={search}
+//         onChange={(e) => setSearch(e.target.value)}
+//         className="border p-2"
+//       />
 
-      <ul>
-        {filteredItems.length > 0 ? (
-          filteredItems.map((item, index) => <li key={index}>{item}</li>)
-        ) : (
-          <p>No result found</p>
-        )}
-      </ul>
-    </div>
-  );
-}
+//       <ul>
+//         {filteredItems.length > 0 ? (
+//           filteredItems.map((item, index) => <li key={index}>{item}</li>)
+//         ) : (
+//           <p>No result found</p>
+//         )}
+//       </ul>
+//     </div>
+//   );
+// }
+
+// "use client";
+// import { useState } from "react";
+// import { useRouter } from "next/navigation";
+
+// export default function LoginPage() {
+//   const router = useRouter();
+//   const [email, setEmail] = useState("");
+//   const [password, setPassword] = useState("");
+
+//   const handleLogin = (e) => {
+//     e.preventDefault();
+
+//     if (email === "admin@gmail.com" && password === "1234") {
+//       localStorage.setItem("token", "my-login-token");
+//       router.push("/dashboard");
+//     } else {
+//       alert("Invalid credentials");
+//     }
+//   };
+
+//   return (
+//     <form
+//       onSubmit={handleLogin}
+//       className="h-screen flex justify-center items-center "
+//       autoComplete="off"
+//     >
+//       <div className="flex flex-col w-50 gap-2  border p-4 rounded-md ">
+//         {" "}
+//         <input
+//           placeholder="Email"
+//           onChange={(e) => setEmail(e.target.value)}
+//           className="p-1 border rounded"
+//           autoComplete="new-email"
+//         />
+//         <input
+//           placeholder="Password"
+//           type="password"
+//           onChange={(e) => setPassword(e.target.value)}
+//           className="p-1 border rounded"
+//           autoComplete="new-password"
+//         />
+//         <button
+//           type="submit"
+//           className="border w-13 p-1 cursor-pointer rounded text-[12px] bg-gray-200"
+//         >
+//           Login
+//         </button>
+//       </div>
+//     </form>
+//   );
+// }

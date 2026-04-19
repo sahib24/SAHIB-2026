@@ -1,6 +1,5 @@
 "use client";
 
-import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 
 const cards = [
@@ -17,25 +16,34 @@ const cards = [
 export default function Dashboard() {
   const router = useRouter();
 
-  useEffect(() => {
-    const isLoggedIn = localStorage.getItem("loggedIn");
-
-    if (!isLoggedIn) {
-      router.push("/login");
-    }
-  }, []);
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    router.push("/login");
+  };
 
   return (
-    <div style={{ padding: 20 }}>
-      <h1 className="text-center text-red-500 font-bold text-[26px]">Dashboard</h1>
+    <div className="flex flex-col p-4">
+      <h1 className="text-center text-red-500 font-bold text-[26px]">
+        Dashboard
+      </h1>
+
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 p-5">
         {cards
           .filter((card) => card.active)
           .map((card) => (
-            <div key={card.id} className="p-4 rounded-xl  bg-green-300 border">
+            <div key={card.id} className="p-4 rounded-xl bg-green-300 border">
               <h2 className="text-lg font-bold">{card.title}</h2>
             </div>
           ))}
+      </div>
+
+      <div className="w-full flex justify-center">
+        <button
+          onClick={handleLogout}
+          className="border w-20 rounded py-1 bg-red-300 cursor-pointer"
+        >
+          Logout
+        </button>
       </div>
     </div>
   );
