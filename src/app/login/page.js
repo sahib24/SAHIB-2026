@@ -25,31 +25,33 @@ export default function LoginPage() {
         {" "}
         <h1 className="text-red-500 text-center">Login</h1>
         <form onSubmit={handleLogin} autoComplete="off">
-          <input
-            placeholder="Email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            className="border mb-2 p-1"
-            autoComplete="new-email"
-          />
-          <br />
-
-          <input
-            type="password"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            className="border p-1"
-            autoComplete="new-password"
-          />
-          <br />
-
-          <button
-            type="submit"
-            className="border p-1 mt-4 bg-green-400 rounded-sm text-white cursor-pointer"
-          >
-            Login
-          </button>
+          <div className="flex flex-col">
+            {" "}
+            <input
+              placeholder="Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="border mb-2 p-1"
+              autoComplete="new-email"
+            />
+            <input
+              type="password"
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className="border p-1"
+              autoComplete="new-password"
+            />
+            <div className=" flex justify-end">
+              {" "}
+              <button
+                type="submit"
+                className="border p-1 mt-4 bg-green-400 w-14 rounded-sm text-white cursor-pointer"
+              >
+                Login
+              </button>
+            </div>
+          </div>
         </form>
       </div>
     </div>

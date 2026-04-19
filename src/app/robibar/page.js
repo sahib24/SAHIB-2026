@@ -13,7 +13,7 @@
 //           className="border p-1 cursor-pointer  "
 //           onClick={() => setOpen(!open)}
 //         >
-//           Toggle
+//           click
 //         </button>
 //         <div> {open && <p>Menu Open</p>}</div>
 //       </div>
