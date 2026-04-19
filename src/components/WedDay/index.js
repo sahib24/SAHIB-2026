@@ -1,25 +1,39 @@
 "use client";
 import { useState } from "react";
+import { usePathname } from "next/navigation";
 
-export default function Counter() {
-  const [open, setOpen] = useState(false);
+export default function Demo() {
+  const [loading, setLoading] = useState(false);
+  const [user, setUser] = useState({ role: "admin" });
+  const [data, setData] = useState([{ id: 1, name: "Sahib" }]);
+  const [show, setShow] = useState(false);
 
-  const fetchData = async () => {
-    setLoading(true);
-    await fetch("api");
-    setLoading(false);
-  };
+  const pathname = usePathname();
+
+  // Loading
+  if (loading) return <p>Loading...</p>;
+
+  // Auth check
+  if (!user) return <p>Please login</p>;
 
   return (
-    <div>
-      <button onClick={() => setOpen(true)}>Open</button>
+    <>
+      {/* Route based */}
+      {pathname === "/" && <h1>Home</h1>}
 
-      {open && (
-        <div>
-          <p>Modal</p>
-          <button onClick={() => setOpen(false)}>Close</button>
-        </div>
+      {/* Toggle */}
+      <button onClick={() => setShow(!show)}>Menu</button>
+      {show && <p>Menu Open</p>}
+
+      {/* Role based */}
+      {user.role === "admin" && <button>Delete</button>}
+
+      {/* Data check */}
+      {data?.length > 0 ? (
+        data.map((item) => <p key={item.id}>{item.name}</p>)
+      ) : (
+        <p>No Data</p>
       )}
-    </div>
+    </>
   );
 }
