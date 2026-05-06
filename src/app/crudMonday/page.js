@@ -1,32 +1,29 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 
-export default function Home() {
+export default function CRUDMonday() {
   const [posts, setPosts] = useState([]);
   const [title, setTitle] = useState("");
   const [editId, setEditId] = useState(null);
   const [editTitle, setEditTitle] = useState("");
 
-  // GET
-  const fetchPosts = async () => {
+  const fetchData = async () => {
     try {
       const res = await axios.get(
         "https://jsonplaceholder.typicode.com/posts?_limit=5",
       );
-
       setPosts(res.data);
     } catch (error) {
-      console.log("GET error:", error);
+      console.log(error);
     }
   };
 
   useEffect(() => {
-    fetchPosts();
+    fetchData();
   }, []);
 
-  // CREATE
   const handleCreate = async (e) => {
     e.preventDefault();
 
@@ -37,7 +34,7 @@ export default function Home() {
         "https://jsonplaceholder.typicode.com/posts",
         {
           title,
-          body: "New post body",
+          body: "new post body",
           userId: 1,
         },
       );
@@ -45,25 +42,8 @@ export default function Home() {
       setPosts([res.data, ...posts]);
       setTitle("");
     } catch (error) {
-      console.log("CREATE error:", error);
+      console.log(error);
     }
-  };
-
-  // DELETE
-  const handleDelete = async (id) => {
-    try {
-      await axios.delete(`https://jsonplaceholder.typicode.com/posts/${id}`);
-
-      setPosts(posts.filter((post) => post.id !== id));
-    } catch (error) {
-      console.log("DELETE error:", error);
-    }
-  };
-
-  // OPEN EDIT
-  const openEdit = (post) => {
-    setEditId(post.id);
-    setEditTitle(post.title);
   };
 
   // UPDATE
@@ -92,72 +72,90 @@ export default function Home() {
     }
   };
 
-  // CANCEL EDIT
+  const handleDelete = async (id) => {
+    try {
+      const res = await axios.delete(
+        `https://jsonplaceholder.typicode.com/posts/${id}`,
+      );
+
+      setPosts(posts.filter((post) => post.id !== id));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const handleCancel = () => {
     setEditId(null);
     setEditTitle("");
   };
 
-  return (
-    <div className="min-h-screen bg-gray-100 p-6">
-      <h1 className="text-3xl font-bold text-center mb-6">CRUD</h1>
+  const openEdit = (post) => {
+    setEditId(post.id);
+    setEditTitle(post.title);
+  };
 
-      {/* CREATE */}
-      <form onSubmit={handleCreate} className="flex gap-2 justify-center mb-6">
+  return (
+    <div className="p-5 ">
+      <form onSubmit={handleCreate} className="flex gap-1 mb-4">
         <input
+          type="text"
+          placeholder="Text Data"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
-          className="p-2 border rounded w-1/3"
-          placeholder="Enter title"
+          className="border p-1"
         />
-        <button className="bg-blue-500 text-white px-4 rounded">Add</button>
+
+        <button className="p-1 border">Create</button>
       </form>
 
-      {/* LIST */}
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+      <div>
         {posts.map((post) => (
-          <div key={post.id} className="bg-white p-4 rounded shadow">
-            {/* TITLE OR INPUT */}
+          <div key={post.id} className="mb-4 border p-3 rounded">
             {editId === post.id ? (
               <input
+                type="text"
+                placeholder="Text Data"
                 value={editTitle}
                 onChange={(e) => setEditTitle(e.target.value)}
-                className="border p-2 w-full rounded"
+                className="border p-1"
               />
             ) : (
-              <h2 className="font-bold">{post.title}</h2>
+              <p>{post.title}</p>
             )}
 
-            {/* BUTTONS */}
             <div className="flex gap-2 mt-3">
               {editId === post.id ? (
                 <>
                   <button
+                    type="button"
                     onClick={handleUpdate}
-                    className="bg-green-500 text-white px-3 py-1 rounded"
+                    className=" text-black px-3 py-1 rounded"
                   >
                     Save
                   </button>
 
                   <button
+                    type="button"
                     onClick={handleCancel}
-                    className="bg-gray-400 text-white px-3 py-1 rounded"
+                    className=" text-black px-3 py-1 rounded"
                   >
                     Cancel
                   </button>
                 </>
               ) : (
                 <button
+                  type="button"
                   onClick={() => openEdit(post)}
-                  className="bg-yellow-400 px-3 py-1 rounded"
+                  className="text-black px-3 py-1 rounded"
                 >
                   Edit
                 </button>
               )}
 
               <button
+                type="button"
                 onClick={() => handleDelete(post.id)}
-                className="bg-red-500 text-white px-3 py-1 rounded"
+                className=" text-black px-3 py-1 rounded"
               >
                 Delete
               </button>
