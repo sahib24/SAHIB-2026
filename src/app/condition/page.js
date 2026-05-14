@@ -9,7 +9,7 @@ export default function PostCRUD() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // xdacacacvadvadvsdvsdvasvad
+
     if (!title.trim()) return;
 
     if (editId) {
@@ -43,7 +43,6 @@ export default function PostCRUD() {
     <div className="max-w-md mx-auto mt-10 p-5 border rounded-lg shadow">
       <h2 className="text-xl font-bold mb-4 text-center">Post CRUD Example</h2>
 
-      {/* Form */}
       <form onSubmit={handleSubmit} className="flex gap-2 mb-4">
         <input
           type="text"

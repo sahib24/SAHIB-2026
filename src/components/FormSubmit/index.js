@@ -9,6 +9,8 @@ export default function SimpleForm() {
     message: "",
   });
 
+  const [loading, setLoading] = useState(false);
+
   const handleChange = (e) => {
     const { name, value } = e.target;
 
@@ -18,17 +20,38 @@ export default function SimpleForm() {
     }));
   };
 
-
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    console.log("Form Data:", formData);
+    setLoading(true);
 
-    setFormData({
-      name: "",
-      email: "",
-      message: "",
-    });
+    try {
+      const res = await fetch("https://jsonplaceholder.typicode.com/posts", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await res.json();
+
+      console.log("API Response:", data);
+
+      // form reset
+      setFormData({
+        name: "",
+        email: "",
+        message: "",
+      });
+
+      alert("Form submitted successfully!");
+    } catch (error) {
+      console.log("Error:", error);
+      alert("Something went wrong!");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -68,9 +91,10 @@ export default function SimpleForm() {
 
         <button
           type="submit"
+          disabled={loading}
           className="bg-green-500 text-white py-2 rounded w-25"
         >
-          Submit
+          {loading ? "Submitting..." : "Submit"}
         </button>
       </form>
     </div>
