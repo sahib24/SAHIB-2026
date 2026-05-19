@@ -101,9 +101,9 @@ export default function CRUD() {
         <button className="border p-1">create</button>
       </form>
 
-      <div>
+      <div className="">
         {posts.map((post) => (
-          <div key={post.id} className="">
+          <div key={post.id} className="border mt-4">
             {post.id === editId ? (
               <input
                 type="text"
@@ -115,7 +115,7 @@ export default function CRUD() {
               <p>{post.title}</p>
             )}
 
-            <div className="flex border">
+            <div className="flex ">
               {post.id === editId ? (
                 <div>
                   <button
@@ -123,7 +123,7 @@ export default function CRUD() {
                     className=" text-black px-3 py-1 rounded"
                     onClick={handleUpdate}
                   >
-                    save
+                    Save
                   </button>
 
                   <button
@@ -131,7 +131,7 @@ export default function CRUD() {
                     className=" text-black px-3 py-1 rounded"
                     onClick={closeEdit}
                   >
-                    close
+                    Close
                   </button>
                 </div>
               ) : (
@@ -140,7 +140,7 @@ export default function CRUD() {
                   className=" text-black px-3 py-1 rounded"
                   onClick={() => openEdit(post)}
                 >
-                  edit
+                  Edit
                 </button>
               )}
 
@@ -149,7 +149,7 @@ export default function CRUD() {
                 className=" text-black px-3 py-1 rounded"
                 onClick={() => handleDelete(post.id)}
               >
-                delete
+                Delete
               </button>
             </div>
           </div>
